@@ -1,20 +1,21 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using ChatApp.DAL.Entity;
+using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
 namespace ChatApp.Hubs
 {
     public class ChatHub : Hub
     {
-        public ChatHub()
-        {
+        //public ChatHub()
+        //{
 
-        }
+        //}
 
-        public override async Task OnConnectedAsync()
-        {
-            var tmp = Context.User;
-            var tlp = Clients.All;
-            await base.OnConnectedAsync();
-        }
+        //public override async Task OnConnectedAsync()
+        //{
+        //    var tmp = Context.User;
+        //    var tlp = Clients.All;
+        //    await base.OnConnectedAsync();
+        //}
     }
 }

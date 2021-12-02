@@ -1,4 +1,5 @@
 ﻿using ChatApp.BLL.DTO;
+using ChatApp.BLL.DTO.UserDTO;
 using ChatApp.DAL.Entity;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace ChatApp.BLL.Interfaces
         Task DeleteUserAsync(string id);
         Task<List<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(string id);
-        Task EditUserAsync(string id, User user);
-
-        Task<string> Login(LoginDTO model);
-        Task Register(RegisterDTO model);
+        Task EditUserAsync(UserDetailsDTO user);
+        Task<string> LoginAsync(LoginDTO model);
+        Task RegisterAsync(RegisterDTO model);
+        Task<UserDetailsDTO> GetMyInfo();
     }
 }

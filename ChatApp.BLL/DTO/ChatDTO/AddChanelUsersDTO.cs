@@ -3,12 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChatApp.BLL.DTO
+namespace ChatApp.BLL.DTO.ChatDTO
 {
-    public class GroupDTO
+    public class AddChanelUsersDTO
     {
-        public string Name { get; set; }
-        public ChatType Type { get; set; }
+        public int Id { get; set; }
         public ICollection<User> Users { get; set; }
     }
 }

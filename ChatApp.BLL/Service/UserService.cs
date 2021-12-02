@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ChatApp.BLL.DTO;
+using ChatApp.BLL.DTO.UserDTO;
 using ChatApp.BLL.Interfaces;
 using ChatApp.DAL.Entity;
 using ChatApp.DAL.UnitOfWork;
@@ -7,6 +8,7 @@ using Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,10 +38,9 @@ namespace ChatApp.BLL.Service
             _env = env;
         }
 
-        public async Task<string> Login(LoginDTO model)
+        public async Task<string> LoginAsync(LoginDTO model)
         {
             var user = await _unitOfWork.Repository<User>().GetAsync(u => u.Email == model.Email);
-            //  if (!user.EmailConfirmed) return null;
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             if (result.Succeeded)
@@ -51,7 +52,7 @@ namespace ChatApp.BLL.Service
             return null;
         }
 
-        public async Task Register(RegisterDTO model)
+        public async Task RegisterAsync(RegisterDTO model)
         {
             var user = _mapper.Map<User>(model);
             user.ImagePath = model.ImagePath;
@@ -80,19 +81,25 @@ namespace ChatApp.BLL.Service
             return await _unitOfWork.Repository<User>().GetAsync(t => t.Id == id);
         }
 
-        public async Task EditUserAsync(string id, User user)
+        public async Task EditUserAsync(UserDetailsDTO user)
         {
-            var updatedUser = await _unitOfWork.Repository<User>().GetAsync(u => u.Id == id);
+            var updatedUser = await _authentication.GetCurrentUserAsync();
             updatedUser.FirstName = user.FirstName;
             updatedUser.LastName = user.LastName;
             updatedUser.PhoneNumber = user.PhoneNumber;
-            updatedUser.UserName = user.UserName;
-            updatedUser.UserRole = user.UserRole;
             updatedUser.Email = user.Email;
             updatedUser.ImagePath = user.ImagePath;
             await _unitOfWork.Repository<User>().UpdateAsync(updatedUser);
             await _unitOfWork.SaveChangesAsync();
             return;
+        }
+
+        public async Task<UserDetailsDTO> GetMyInfo()
+        {
+            var user = await _authentication.GetCurrentUserAsync();
+            if (user == null) throw new UnauthorizedAccessException("Please authorize first");
+            var userDetails = _mapper.Map<UserDetailsDTO>(user);
+            return userDetails;
         }
     }
 }

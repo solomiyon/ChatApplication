@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using SendGrid;
 
 namespace ChatApp
@@ -57,6 +56,17 @@ namespace ChatApp
 
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ClientPermission", policy =>
+                {
+                    policy.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:3000")
+                        .AllowCredentials();
+                });
+            });
+
             services.AddControllersWithViews()
             .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -88,10 +98,12 @@ namespace ChatApp
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCors("ClientPermission");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chatter");
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }

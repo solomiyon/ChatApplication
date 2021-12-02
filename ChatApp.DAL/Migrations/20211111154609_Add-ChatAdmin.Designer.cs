@@ -4,14 +4,16 @@ using ChatApp.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChatApp.DAL.Migrations
 {
     [DbContext(typeof(ChatAppDbContext))]
-    partial class ChatAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211111154609_Add-ChatAdmin")]
+    partial class AddChatAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
