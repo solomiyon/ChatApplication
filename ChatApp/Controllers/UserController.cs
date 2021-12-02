@@ -4,6 +4,7 @@ using ChatApp.BLL.DTO.UserDTO;
 using ChatApp.BLL.Interfaces;
 using ChatApp.DAL.Entity;
 using ChatApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Threading.Tasks;
