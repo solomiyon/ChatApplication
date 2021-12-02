@@ -6,7 +6,7 @@ namespace ChatApp.DAL.Entity
 {
     public enum ChatType
     {
-        Chat,
+        Chate,
         PrivateChanel,
         PublicChanel
     }

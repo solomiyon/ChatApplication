@@ -11,6 +11,7 @@ namespace ChatApp.DAL.Entity
         public string Description { get; set; }
         public DateTime Data { get; set; }
         public ChatType Type { get; set; }
+        public string AdminId { get; set; }
         public ICollection<ChatUser> Participants { get; set; }
         public ICollection<Message> Messages { get; set; }
     }

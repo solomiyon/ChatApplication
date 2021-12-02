@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChatApp.BLL.DTO
+namespace ChatApp.BLL.DTO.ChatDTO
 {
     public class ChatDTO
     {

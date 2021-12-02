@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ChatApp.BLL.Infrastructure
 {
@@ -59,23 +60,23 @@ namespace ChatApp.BLL.Infrastructure
                         ValidateIssuer = true,
                         ValidateAudience = true
                     };
-                    //cfg.Events = new JwtBearerEvents
-                    //{
-                    //    OnMessageReceived = context =>
-                    //    {
-                    //        var accessToken = context.Request.Query["access_token"];
+                    cfg.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
 
-                    //        // если запрос направлен хабу
-                    //        var path = context.HttpContext.Request.Path;
-                    //        if (!string.IsNullOrEmpty(accessToken) &&
-                    //            (path.StartsWithSegments("/chatHub")))
-                    //        {
-                    //            // получаем токен из строки запроса
-                    //            context.Token = accessToken;
-                    //        }
-                    //        return Task.CompletedTask;
-                    //    }
-                    //};
+                            // если запрос направлен хабу
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                (path.StartsWithSegments("/chat")))
+                            {
+                                // получаем токен из строки запроса
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             return services;

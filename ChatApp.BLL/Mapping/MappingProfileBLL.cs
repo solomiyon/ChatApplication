@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using ChatApp.BLL.DTO;
+using ChatApp.BLL.DTO.ChatDTO;
 using ChatApp.BLL.DTO.Message;
+using ChatApp.BLL.DTO.UserDTO;
 using ChatApp.DAL.Entity;
 
 namespace ChatApp.BLL.Mapping
@@ -17,9 +19,13 @@ namespace ChatApp.BLL.Mapping
             CreateMap<User, LoginDTO>().ReverseMap();
             CreateMap<Chat, ChatDTO>().ReverseMap();
             CreateMap<Chat, GroupDTO>().ReverseMap();
+            CreateMap<Chat, GetChatsDTO>().ReverseMap();
             CreateMap<User, GetChatsDTO>().ReverseMap();
             CreateMap<Message, AddMessageDTO>().ReverseMap();
             CreateMap<Message, GetMessageDTO>().ReverseMap();
+            CreateMap<Chat, GetChatDTO>().ReverseMap();
+            CreateMap<User, UserDetailsDTO>().ReverseMap();
+            CreateMap<Chat, AddChanelUsersDTO>().ReverseMap();
         }      
     }
 }
